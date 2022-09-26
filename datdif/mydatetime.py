@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from datdif import get_max_days, is_work_day
+from datdif import get_max_days
 
 
 def handle_last_day(method):
@@ -36,8 +36,7 @@ class MyDateTime:
 
     @staticmethod
     def delta_difference(start_datetime: datetime,
-                         end_datetime: datetime,
-                         work_days: bool = False) -> tuple[int, int, int, int]:
+                         end_datetime: datetime) -> tuple[int, int, int, int]:
         """ Returns the difference between two datetime objects
         as number of days, hours, minutes, and seconds """
 
@@ -45,11 +44,7 @@ class MyDateTime:
         days: int = 0
         dt: datetime = start_datetime
         while dt.date() < end_datetime.date():
-            if work_days:
-                if is_work_day(dt.date()):
-                    days += 1
-            else:
-                days += 1
+            days += 1
             # Add one day to dt
             work = MyDateTime(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
             work.add_days(1)
@@ -223,7 +218,7 @@ class MyDateTime:
         else:
             pass
 
-    def date_difference(self, other_date: "MyDateTime", work_days: bool = False):
+    def date_difference(self, other_date: "MyDateTime"):
         """ Returns a tuple with the difference between two dates """
         n_years: int = 0
         n_months: int = 0
@@ -262,11 +257,7 @@ class MyDateTime:
             new_date = MyDateTime(*this_date.get_fields())
             new_date.add_days(1)
             if new_date <= other_date:
-                if work_days:
-                    if new_date.is_work_day():
-                        n_days += 1
-                else:
-                    n_days += 1
+                n_days += 1
                 this_date = new_date
             else:
                 break
@@ -303,10 +294,6 @@ class MyDateTime:
     def get_fields(self) -> tuple[int, int, int, int, int, int]:
         """ Returns the year, month, day, hour, minute, and second tuple """
         return self.year, self.month, self.day, self.hour, self.minute, self.second
-
-    def is_work_day(self) -> bool:
-        """ Returns True if this date is not a weekend or holiday """
-        return is_work_day(self.to_date())
 
     def to_date(self) -> datetime:
         """ Converts this object to a datetime """
