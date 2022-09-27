@@ -8,5 +8,5 @@ setup(
     license='MIT License',
     author='saspeh',
     author_email='',
-    description='Finds difference between dates'
+    description='Calculates and prints the difference between dates.'
 )
