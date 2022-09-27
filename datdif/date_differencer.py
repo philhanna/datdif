@@ -25,7 +25,11 @@ class DateDifferencer:
             return dobj
         if dobj == "today":
             return DateDifferencer.current_date()
-        dt = datetime.strptime(dobj, DateDifferencer.date_format())
+        try:
+            dt = datetime.strptime(dobj, DateDifferencer.date_format())
+        except ValueError:
+            errmsg = f"'{dobj}' is not a valid date"
+            raise ValueError(errmsg)
         the_date = dt.date()
         return the_date
 
