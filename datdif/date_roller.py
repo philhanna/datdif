@@ -63,5 +63,23 @@ class DateRoller:
 
     @handle_last_day
     def add_years(self, n: int):
-        self.year = self.year + n
+        self.year += n
+
+    @handle_last_day
+    def add_months(self, n: int):
+        if n > 0:
+            for i in range(n):
+                self.month += 1
+                if self.month > 12:
+                    self.year += 1
+                    self.month = 1
+        elif n < 0:
+            n = -n
+            for i in range(n):
+                self.month -= 1
+                if self.month < 1:
+                    self.year -= 1
+                    self.month = 12
+
+
 
