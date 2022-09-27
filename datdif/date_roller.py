@@ -63,10 +63,12 @@ class DateRoller:
 
     @handle_last_day
     def add_years(self, n: int):
+        """Adds the specified number of years to this date"""
         self.year += n
 
     @handle_last_day
     def add_months(self, n: int):
+        """Adds the specified number of months to this date"""
         if n > 0:
             for i in range(n):
                 self.month += 1
@@ -81,5 +83,20 @@ class DateRoller:
                     self.year -= 1
                     self.month = 12
 
+    def add_days(self, n: int):
+        """Adds the specified number of days to this date"""
+        if n > 0:
+            for i in range(n):
+                self.day += 1
+                if self.day > get_max_days(self.year, self.month):
+                    self.add_months(1)
+                    self.day = 1
+        elif n < 0:
+            n = -n
+            for i in range(n):
+                self.day -= 1
+                if self.day < 1:
+                    self.add_months(-1)
+                    self.day = get_max_days(self.year, self.month)
 
 
