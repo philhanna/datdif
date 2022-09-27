@@ -15,6 +15,14 @@ class TestDateDifference(TestCase):
         actual = dd.delta()
         self.assertEqual(expected, actual)
 
+    def test_two_days_with_date_string(self):
+        start_date = "01/01/2020"
+        end_date = date(2020, 1, 3)
+        dd = DateDifferencer(start_date, end_date)
+        expected = 2
+        actual = dd.delta()
+        self.assertEqual(expected, actual)
+
     def test_one_year(self):
         start_date = "3/2/1975"
         end_date = "3/2/1976"
@@ -27,7 +35,7 @@ class TestDateDifference(TestCase):
         with patch('datdif.DateDifferencer.current_date') as mock_current_date:
             mock_current_date.return_value = date(2020, 1, 1)
             start_date = "today"
-            end_date = date(2020, 1, 2)
+            end_date = "1/2/2020"
             expected = 1
             dd = DateDifferencer(start_date, end_date)
             actual = dd.delta()
