@@ -27,10 +27,14 @@ class DateDifferencer:
         the_date = dt.date()
         return the_date
 
-    @staticmethod
-    def delta(date1, date2):
+    def __init__(self, date1, date2):
+        """Creates a new DateDifferencer object"""
+        self.date1 = date1
+        self.date2 = date2
+
+    def delta(self):
         """Calculates the difference between two dates"""
-        date1 = DateDifferencer.parse_date(date1)
-        date2 = DateDifferencer.parse_date(date2)
+        date1 = DateDifferencer.parse_date(self.date1)
+        date2 = DateDifferencer.parse_date(self.date2)
         diff = date2 - date1
         return diff.days

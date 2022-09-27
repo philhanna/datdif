@@ -1,0 +1,67 @@
+from datetime import date
+
+from datdif import get_max_days
+
+
+def handle_last_day(method):
+    """Decorator to preserve the "last day of month" status
+    for methods that change the year and/or month.
+    If the starting date is the last day of the month in that year
+    then the ending date should also be the last day of the
+    [new] month in the [new] year, rather than the same date.
+    """
+
+    def wrapper(*args, **kwargs):
+        # Need to get self because this is an instance method
+        self: DateRoller = args[0]
+        is_last_day: bool = get_max_days(self.year, self.month) == self.day
+        method(*args, **kwargs)
+        if is_last_day:
+            self.day = get_max_days(self.year, self.month)
+    return wrapper
+
+
+class DateRoller:
+    """Utility class for adding years, months, and/or days to a date"""
+
+    def __init__(self, date: date):
+        self._year = date.year
+        self._month = date.month
+        self._day = date.day
+
+    @property
+    def date(self):
+        return date(self.year, self.month, self.day)
+
+    @property
+    def year(self) -> int:
+        return self._year
+
+    @year.setter
+    def year(self, new_year: int):
+        self._year = new_year
+
+    @property
+    def month(self) -> int:
+        return self._month
+
+    @month.setter
+    def month(self, new_month: int):
+        self._month = new_month
+
+    @property
+    def day(self) -> int:
+        return self._day
+
+    @day.setter
+    def day(self, new_day: int):
+        self._day = new_day
+
+    ####################################################################
+    #   Methods to add or subtract time units
+    ####################################################################
+
+    @handle_last_day
+    def add_years(self, n: int):
+        self.year = self.year + n
+
