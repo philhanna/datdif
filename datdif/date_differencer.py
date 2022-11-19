@@ -6,6 +6,19 @@ from datdif import DateRoller
 class DateDifferencer:
     """Calculates the difference between dates"""
 
+    def __init__(self, date1, date2, days=False):
+        """Creates a new DateDifferencer object"""
+        self._start_date = DateDifferencer.parse_date(date1)
+        self._end_date = DateDifferencer.parse_date(date2)
+        self._days = days
+        if self.start_date > self.end_date:
+            raise ValueError("Start date cannot be greater than end date")
+        if days:
+            self._delta = (self.end_date - self.start_date).days
+        else:
+            # Calculate years, months, and days
+            self._delta = DateDifferencer.roll_dates(self.start_date, self.end_date)
+
     @staticmethod
     def date_format():
         """Returns the date format used by this class"""
@@ -63,18 +76,6 @@ class DateDifferencer:
 
         return n_years, n_months, n_days
 
-    def __init__(self, date1, date2, days=False):
-        """Creates a new DateDifferencer object"""
-        self._start_date = DateDifferencer.parse_date(date1)
-        self._end_date = DateDifferencer.parse_date(date2)
-        if self.start_date > self.end_date:
-            raise ValueError("Start date cannot be greater than end date")
-        if days:
-            self._delta = (self.end_date - self.start_date).days
-        else:
-            # Calculate years, months, and days
-            self._delta = DateDifferencer.roll_dates(self.start_date, self.end_date)
-
     @property
     def start_date(self):
         return self._start_date
@@ -89,6 +90,8 @@ class DateDifferencer:
 
     def __str__(self):
         names: list[str] = ['years', 'months', 'days']
+        if self._days:
+            return f"{self.delta} {'days' if self.delta != 1 else 'day'}"
         outputs: list[str] = []
         for i, value in enumerate(self.delta):
             if value == 0:

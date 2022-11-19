@@ -126,3 +126,9 @@ class TestDateDifference(TestCase):
             DateDifferencer(start_date, end_date, days=True)
         expected = "cannot be"
         self.assertIn(expected, str(ex.exception))
+
+    def test_failing_days(self):
+        start_date = "02/23/2019"
+        end_date = "today"
+        dd = DateDifferencer(start_date, end_date, days=True)
+        #print(dd)
