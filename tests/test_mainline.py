@@ -16,7 +16,7 @@ class TestMainline(TestCase):
         self.assertEqual("", errmsg)
 
     def test_bad_arg(self):
-        parms = ["python", "datdif.py", "--version"]
+        parms = ["python", "datdif.py", "--bogus"]
         cp = subprocess.run(parms, cwd=project_root_dir, capture_output=True)
         output = str(cp.stdout.decode("utf-8"))
         self.assertEqual("", output)
