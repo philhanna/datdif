@@ -2,7 +2,7 @@
 import argparse
 import sys
 
-from datdif import DateDifferencer
+from datdif import DateDifferencer, get_version
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -12,6 +12,7 @@ The string "today" can be entered for either date.""")
 
 parser.add_argument("start_date", help="starting date")
 parser.add_argument("end_date", help="ending date")
+parser.add_argument("-v", "--version", action="version", version=get_version(), help="show version and exit")
 parser.add_argument("--days", action="store_true", help="show result in days")
 args = parser.parse_args()
 
@@ -21,4 +22,3 @@ try:
 except ValueError as ex:
     errmsg = str(ex)
     print(errmsg, file=sys.stderr)
-
