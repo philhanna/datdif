@@ -25,8 +25,8 @@ class TestMainline(TestCase):
 
     def test_two_days(self):
         parms = ["python", "datdif.py",
-                 "1/1/2020",
-                 "1/3/2020",
+                 "2020-01-01",
+                 "2020-01-03",
                  ]
         cp = subprocess.run(parms, cwd=project_root_dir, capture_output=True)
         expected = "2 days\n"
@@ -37,8 +37,8 @@ class TestMainline(TestCase):
 
     def test_then_to_jfk(self):
         parms = ["python", "datdif.py",
-                 "12/4/1953",
-                 "11/22/1963",
+                 "1953-12-04",
+                 "1963-11-22",
                  ]
         cp = subprocess.run(parms, cwd=project_root_dir, capture_output=True)
         expected = "9 years, 11 months, 18 days\n"
@@ -49,8 +49,8 @@ class TestMainline(TestCase):
 
     def test_backwards(self):
         parms = ["python", "datdif.py",
-                 "11/22/1963",
-                 "12/4/1953",
+                 "1963-11-22",
+                 "1953-12-04",
                  ]
         cp = subprocess.run(parms, cwd=project_root_dir, capture_output=True)
         expected = ""

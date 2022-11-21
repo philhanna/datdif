@@ -20,11 +20,6 @@ class DateDifferencer:
             self._delta = DateDifferencer.roll_dates(self.start_date, self.end_date)
 
     @staticmethod
-    def date_format():
-        """Returns the date format used by this class"""
-        return "%m/%d/%Y"
-
-    @staticmethod
     def current_date():
         """Returns today's date.
         Specified as a method here so that it can be mocked in unit tests"""
@@ -39,12 +34,11 @@ class DateDifferencer:
         if dobj == "today":
             return DateDifferencer.current_date()
         try:
-            dt = datetime.strptime(dobj, DateDifferencer.date_format())
+            dt = date.fromisoformat(dobj)
         except ValueError:
             errmsg = f"'{dobj}' is not a valid date"
             raise ValueError(errmsg)
-        the_date = dt.date()
-        return the_date
+        return dt
 
     @staticmethod
     def roll_dates(start_date, end_date):
