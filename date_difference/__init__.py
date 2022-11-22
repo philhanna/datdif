@@ -8,7 +8,7 @@ from .date_differencer import DateDifferencer
 def get_version():
     import subprocess
     version = None
-    cp = subprocess.run(['pip', 'show', __package__], check=True, text=True, capture_output=True)
+    cp = subprocess.run(['pip', 'show', __package__], text=True, capture_output=True)
     output = cp.stdout
     for token in output.split('\n'):
         m = re.match(r'^Version: (.*)', token)

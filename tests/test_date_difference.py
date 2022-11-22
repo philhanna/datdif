@@ -2,7 +2,7 @@ from datetime import date, timedelta
 from unittest import TestCase
 from unittest.mock import patch
 
-from datdif import DateDifferencer
+from date_difference import DateDifferencer
 
 
 class TestDateDifference(TestCase):
@@ -49,7 +49,7 @@ class TestDateDifference(TestCase):
         self.assertEqual(expected, actual)
 
     def test_today_tomorrow_in_days(self):
-        with patch('datdif.DateDifferencer.current_date') as mock_current_date:
+        with patch('date_difference.DateDifferencer.current_date') as mock_current_date:
             mock_current_date.return_value = date(2020, 1, 1)
             start_date = "today"
             end_date = "2020-01-02"

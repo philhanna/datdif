@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from datdif import is_leap_year
+from date_difference import is_leap_year
 
 
 class TestIsLeapYear(TestCase):

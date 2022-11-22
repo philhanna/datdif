@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from datdif import get_max_days
+from date_difference import get_max_days
 
 
 class TestMaxDays(TestCase):

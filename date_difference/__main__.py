@@ -1,8 +1,7 @@
-#! /usr/bin/python3
 import argparse
 import sys
 
-from datdif import DateDifferencer, get_version
+from date_difference import DateDifferencer, get_version
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,

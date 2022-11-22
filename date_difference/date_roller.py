@@ -1,6 +1,6 @@
 from datetime import date
 
-from datdif import get_max_days
+from date_difference import get_max_days
 
 
 def handle_last_day(method):

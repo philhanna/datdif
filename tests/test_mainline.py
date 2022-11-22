@@ -8,15 +8,15 @@ class TestMainline(TestCase):
     """Unit tests for the mainline"""
 
     def test_help(self):
-        parms = ["python", "datdif.py", "--help"]
+        parms = ["python", "date_difference.py", "--help"]
         cp = subprocess.run(parms, cwd=project_root_dir, capture_output=True)
         output = str(cp.stdout.decode("utf-8"))
-        self.assertIn("usage: datdif.py [-h]", output)
+        self.assertIn("usage: date_difference.py [-h]", output)
         errmsg = str(cp.stderr.decode("utf-8"))
         self.assertEqual("", errmsg)
 
     def test_bad_arg(self):
-        parms = ["python", "datdif.py", "--bogus"]
+        parms = ["python", "date_difference.py", "--bogus"]
         cp = subprocess.run(parms, cwd=project_root_dir, capture_output=True)
         output = str(cp.stdout.decode("utf-8"))
         self.assertEqual("", output)
@@ -24,10 +24,7 @@ class TestMainline(TestCase):
         self.assertIn("error: the following", errmsg)
 
     def test_two_days(self):
-        parms = ["python", "datdif.py",
-                 "2020-01-01",
-                 "2020-01-03",
-                 ]
+        parms = ["python", "date_difference.py", "2020-01-01", "2020-01-03"]
         cp = subprocess.run(parms, cwd=project_root_dir, capture_output=True)
         expected = "2 days\n"
         actual = str(cp.stdout.decode("utf-8"))
@@ -36,7 +33,7 @@ class TestMainline(TestCase):
         self.assertEqual("", errmsg)
 
     def test_then_to_jfk(self):
-        parms = ["python", "datdif.py",
+        parms = ["python", "date_difference.py",
                  "1953-12-04",
                  "1963-11-22",
                  ]
@@ -48,7 +45,7 @@ class TestMainline(TestCase):
         self.assertEqual("", errmsg)
 
     def test_backwards(self):
-        parms = ["python", "datdif.py",
+        parms = ["python", "date_difference.py",
                  "1963-11-22",
                  "1953-12-04",
                  ]
@@ -60,7 +57,7 @@ class TestMainline(TestCase):
         self.assertIn("cannot be greater", errmsg)
 
     def test_missing_arg(self):
-        parms = ["python", "datdif.py",
+        parms = ["python", "date_difference.py",
                  "today",
                  ]
         cp = subprocess.run(parms, cwd=project_root_dir, capture_output=True)
@@ -71,7 +68,7 @@ class TestMainline(TestCase):
         self.assertIn("arguments are required", errmsg)
 
     def test_bogus_date(self):
-        parms = ["python", "datdif.py",
+        parms = ["python", "date_difference.py",
                  "today",
                  "bogus"
                  ]

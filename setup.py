@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(
-    name='datdif',
+    name='date_difference',
     version='1.1.0',
-    packages=['datdif'],
+    packages=['date_difference'],
     url='https://github.com/philhanna/datdif',
     license='MIT License',
     author='saspeh',

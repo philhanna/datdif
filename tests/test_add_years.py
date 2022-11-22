@@ -1,7 +1,7 @@
 from datetime import date
 from unittest import TestCase
 
-from datdif import DateRoller
+from date_difference import DateRoller
 
 
 class TestAddYears(TestCase):

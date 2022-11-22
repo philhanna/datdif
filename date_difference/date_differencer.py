@@ -1,6 +1,6 @@
 from datetime import datetime, date
 
-from datdif import DateRoller
+from date_difference import DateRoller
 
 
 class DateDifferencer:
