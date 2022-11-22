@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='date_difference',
-    version='1.1.0',
+    version='1.1.1',
     packages=['date_difference'],
     url='https://github.com/philhanna/datdif',
     license='MIT License',
