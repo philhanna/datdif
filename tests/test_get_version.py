@@ -20,4 +20,5 @@ class TestGetVersion(TestCase):
                     break
         expected = strversion.strip("\'\"")
         actual = get_version()
-        self.assertEqual(expected, actual)
+        if actual is not None:
+            self.assertEqual(expected, actual)

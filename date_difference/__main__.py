@@ -7,7 +7,8 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
     description=f"""\
 Calculates and prints the difference between dates. Dates must be in the format YYYY-MM-DD.
-The string "today" can be entered for either date.""")
+The string "today" can be entered for either date.""",
+    prog="datdif")
 
 parser.add_argument("start_date", help="starting date")
 parser.add_argument("end_date", help="ending date")
