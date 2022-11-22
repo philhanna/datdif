@@ -1,24 +1,17 @@
 import re
-import subprocess
 
 from .maxdays import is_leap_year, get_max_days
 from .date_roller import DateRoller
 from .date_differencer import DateDifferencer
 
-pkgname = 'datdif'  # Change this to the desired package name
-
 
 def get_version():
+    import subprocess
     version = None
-    parms = ['pip', 'show', pkgname]
-    cp = subprocess.run(
-        parms,
-        capture_output=True,
-        check=True,
-        text=True
-    )
-    for token in cp.stdout.splitlines():
-        m = re.match(r'^Version:\s+(.*)', token)
+    cp = subprocess.run(['pip', 'show', __package__], check=True, text=True, capture_output=True)
+    output = cp.stdout
+    for token in output.split('\n'):
+        m = re.match(r'^Version: (.*)', token)
         if m:
             version = m.group(1)
             break

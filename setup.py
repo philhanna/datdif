@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='datdif',
     version='1.1.0',
-    packages=['tests', 'datdif'],
+    packages=['datdif'],
     url='https://github.com/philhanna/datdif',
     license='MIT License',
     author='saspeh',
