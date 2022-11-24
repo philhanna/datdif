@@ -2,8 +2,7 @@
 # datdif
 
 Calculates and prints the difference between dates.
-By default, dates must be in the format MM/DD/YYYY.  The month and day can be
-either one or two digits.  The year must be four digits.
+By default, dates must be in the format MM/DD/YYYY.
 The string "today" can be entered for either date.
 
 ## Usage
