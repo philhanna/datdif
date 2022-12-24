@@ -88,3 +88,11 @@ def test_bad_in_days():
         DateDifferencer(start_date, end_date, days=True)
     expected = "cannot be"
     assert expected in str(ex.value)
+
+
+def test_parse_bad_date():
+    with pytest.raises(ValueError) as ex:
+        DateDifferencer("today", "bogus")
+    expected = "'bogus' is not a valid date"
+    actual = str(ex.value)
+    assert actual == expected
