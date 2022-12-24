@@ -5,6 +5,7 @@ import pytest
 from date_difference import DateDifferencer
 
 
+# Parametrize simple tests
 @pytest.mark.parametrize("start_date,end_date,expected,in_days", [
     ("2020-01-01", "2020-01-03", (0, 0, 2), False),  # two days
     ("2020-01-01", "2020-01-03", 2, True),  # two days (in days)
@@ -33,6 +34,7 @@ def test_two_days_with_date_string_in_days():
 
 
 def test_today_tomorrow_in_days(monkeypatch):
+    # Force today to be 2020-01-01
     monkeypatch.setattr('date_difference.DateDifferencer.current_date', lambda: date(2020, 1, 1))
     start_date = "today"
     end_date = "2020-01-02"
@@ -67,6 +69,28 @@ def test_today():
     end_date = date.today() + td
     dd = DateDifferencer(start_date, end_date, days=False)
     assert dd.delta == (0, 0, 1)
+    expected = "1 day"
+    actual = str(dd)
+    assert actual == expected
+
+
+def test_day_after_tomorrow_in_days():
+    start_date = "today"
+    td = timedelta(days=2)
+    end_date = date.today() + td
+    dd = DateDifferencer(start_date, end_date, days=True)
+    assert dd.delta == 2
+    expected = "2 days"
+    actual = str(dd)
+    assert actual == expected
+
+
+def test_today_in_days():
+    start_date = "today"
+    td = timedelta(days=1)
+    end_date = date.today() + td
+    dd = DateDifferencer(start_date, end_date, days=True)
+    assert dd.delta == 1
     expected = "1 day"
     actual = str(dd)
     assert actual == expected

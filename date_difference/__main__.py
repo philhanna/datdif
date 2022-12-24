@@ -18,7 +18,7 @@ args = parser.parse_args()
 
 try:
     dd = DateDifferencer(args.start_date, args.end_date, days=args.days)
-    print(dd)
+    print(str(dd))
 except ValueError as ex:
     errmsg = str(ex)
     print(errmsg, file=sys.stderr)
