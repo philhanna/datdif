@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='date_difference',
-    version='1.1.1',
+    version='1.2.0',
     packages=['date_difference'],
     install_requires=['pytest'],
     url='https://github.com/philhanna/datdif',
