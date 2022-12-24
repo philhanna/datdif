@@ -1,51 +1,20 @@
 from datetime import date
-from unittest import TestCase
-
+import pytest
 from date_difference import DateRoller
 
 
-class TestAddYears(TestCase):
-
-    def test_add_1_year_to_leap_day(self):
-        date_roller = DateRoller(date(2020, 2, 29))
-        date_roller.add_years(1)
-        expected = date(2021, 2, 28)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_add_4_years_to_leap_day(self):
-        date_roller = DateRoller(date(2020, 2, 29))
-        date_roller.add_years(4)
-        expected = date(2024, 2, 29)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_add_4_years_to_non_leap_day(self):
-        date_roller = DateRoller(date(2020, 2, 15))
-        date_roller.add_years(4)
-        expected = date(2024, 2, 15)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_negative_years(self):
-        date_roller = DateRoller(date(1953, 12, 4))
-        date_roller.add_years(-1)
-        expected = date(1952, 12, 4)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_negative_years_on_leap_day(self):
-        date_roller = DateRoller(date(2020, 2, 29))
-        date_roller.add_years(-3)
-        expected = date(2017, 2, 28)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_negative_years_on_leap_day_from_1904(self):
-        date_roller = DateRoller(date(1904, 2, 29))
-        date_roller.add_years(-4)
-        expected = date(1900, 2, 28)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-
+@pytest.mark.parametrize("indate,years_to_add,expected", [
+    ("2020-02-29", 1, "2021-02-28"),        # Add one year to leap day
+    ("2020-02-29", 4, "2024-02-29"),        # Add four years to leap day
+    ("2020-02-15", 4, "2024-02-15"),        # Add four years to non-leap day
+    ("1953-12-04", -1, "1952-12-04"),       # Negative years
+    ("2020-02-29", -3, "2017-02-28"),       # Negative years on leap day
+    ("1904-02-29", -4, "1900-02-28"),       # Negative years on leap day from 1904
+])
+def test_add_years(indate, years_to_add, expected):
+    indate = date.fromisoformat(indate)
+    expected = date.fromisoformat(expected)
+    date_roller = DateRoller(indate)
+    date_roller.add_years(years_to_add)
+    actual = date_roller.date
+    assert actual == expected
