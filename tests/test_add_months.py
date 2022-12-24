@@ -1,56 +1,22 @@
 from datetime import date
-from unittest import TestCase
+
+import pytest
 
 from date_difference import DateRoller
 
 
-class TestAddMonths(TestCase):
-
-    def test_simple_case(self):
-        date_roller = DateRoller(date(1997, 6, 12))
-        date_roller.add_months(2)
-        expected = date(1997, 8, 12)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_zero_months(self):
-        date_roller = DateRoller(date(1997, 6, 12))
-        date_roller.add_months(0)
-        expected = date(1997, 6, 12)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_through_new_year(self):
-        date_roller = DateRoller(date(1953, 12, 4))
-        date_roller.add_months(3)
-        expected = date(1954, 3, 4)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_back_through_new_year(self):
-        date_roller = DateRoller(date(1954, 3, 4))
-        date_roller.add_months(-3)
-        expected = date(1953, 12, 4)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_leap_day_plus_3(self):
-        date_roller = DateRoller(date(2004, 2, 29))
-        date_roller.add_months(3)
-        expected = date(2004, 5, 31)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_leap_day_backwards_to_previous_year(self):
-        date_roller = DateRoller(date(2004, 2, 29))
-        date_roller.add_months(-3)
-        expected = date(2003, 11, 30)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
-
-    def test_non_leap_day_backwards_to_previous_year(self):
-        date_roller = DateRoller(date(2005, 2, 28))
-        date_roller.add_months(-12)
-        expected = date(2004, 2, 29)
-        actual = date_roller.date
-        self.assertEqual(expected, actual)
+@pytest.mark.parametrize("indate,add,expected", [
+    ("1997-06-12", 2, "1997-08-12"),        # simple case
+    ("1997-06-12", 0, "1997-06-12"),        # zero months
+    ("1953-12-04", 3, "1954-03-04"),        # though new year
+    ("1954-03-04", -3, "1953-12-04"),       # back though new year
+    ("2004-02-29", 3, "2004-05-31"),        # leap date + 3
+    ("2004-02-29", -3, "2003-11-30"),       # leap day backwards to previous year
+    ("2005-02-28", -12, "2004-02-29"),      # non leap day backwards to previous year
+])
+def test_months(indate, add, expected):
+    date_roller = DateRoller(date.fromisoformat(indate))
+    date_roller.add_months(add)
+    expected = date.fromisoformat(expected)
+    actual = date_roller.date
+    assert actual == expected
