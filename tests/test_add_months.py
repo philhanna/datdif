@@ -14,7 +14,7 @@ from date_difference import DateRoller
     ("2004-02-29", -3, "2003-11-30"),       # leap day backwards to previous year
     ("2005-02-28", -12, "2004-02-29"),      # non leap day backwards to previous year
 ])
-def test_months(indate, add, expected):
+def test_add_months(indate, add, expected):
     date_roller = DateRoller(date.fromisoformat(indate))
     date_roller.add_months(add)
     expected = date.fromisoformat(expected)
