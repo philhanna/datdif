@@ -10,7 +10,7 @@ def get_max_days(year: int, month: int) -> int:
 
 def is_leap_year(year: int) -> bool:
     """Returns True if the specified year is a leap year"""
-    if year % 400 == 0:     # e.g., 2000, but not 1900
+    if year % 400 == 0:  # e.g., 2000, but not 1900
         return True
     if year % 100 == 0:
         return False

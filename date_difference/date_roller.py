@@ -18,6 +18,7 @@ def handle_last_day(method):
         method(*args, **kwargs)
         if is_last_day:
             self.day = get_max_days(self.year, self.month)
+
     return wrapper
 
 
@@ -98,5 +99,3 @@ class DateRoller:
                 if self.day < 1:
                     self.add_months(-1)
                     self.day = get_max_days(self.year, self.month)
-
-
